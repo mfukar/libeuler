@@ -120,7 +120,6 @@ def binomial(n, k):
     return nt
 
 def prime_sieve(end):
-    assert end > 0, "end must be >0"
     lng = ((end // 2) - 1 + end % 2)
     sieve = [False] * (lng + 1)
 
