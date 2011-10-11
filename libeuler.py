@@ -15,7 +15,8 @@
 
 import random
 from functools import reduce
-from math import sqrt, ceil
+from  operator import mul
+from      math import sqrt, ceil
 
 def factorial(n):
     return reduce(lambda x,y:x*y, range(1,n+1), 1)
@@ -97,6 +98,35 @@ def factor(n):
         F.append((p,e))
     F.sort()
     return F
+
+
+# Generator for a superset of primes
+# Used for prime factorization, below:
+def primes_plus():
+    yield 2
+    yield 3
+    i = 5
+    while True:
+        yield i
+        if i % 6 == 1:
+            i += 2
+        i += 2
+
+# Returns a dictionary with n = product p ^ d[p]
+def prime_factors(n):
+    d = {}
+    primes = PrimesPlus()
+    for p in primes:
+        while n % p == 0:
+            n /= p
+            d[p] = d.setdefault(p, 0) + 1
+        if n == 1:
+            return d
+
+def number_of_divisors(n):
+    d = prime_factors(n)
+    powers_plus = map(lambda x: x + 1, d.values())
+    return reduce(mul, powers_plus, 1)
 
 def gcd(a, b):
     a, b = abs(a), abs(b)
@@ -190,3 +220,23 @@ def mfukar_primes(n):
         if sieve[i]:
             sieve[i*i::2*i] = [False] * int((n-i*i-1)/(2*i)+1)
     return [2] + [i for i in range(3, n, 2) if sieve[i]]
+
+
+# Find the maximal path from the root of a tree to a leaf
+# t is a list of lists, representing the tree top-down
+def triangle_maximal_sum(t):
+    for row in range(len(t)-1, 0, -1):
+        for col in range(0, row):
+            dt[row-1][col] += max(t[row][col], t[row][col+1])
+    return t[0][0]
+
+# Returns the aliquot sum of n - sum of its proper divisors
+def s(n):
+    sum = 1
+    t = sqrt(n)
+    # only proper divisors, please
+    for i in range(2, int(t)+1):
+        if n % i == 0: sum += i + n / i
+    if t == int(t):
+        sum -= t
+    return sum
