@@ -115,7 +115,7 @@ def primes_plus():
 # Returns a dictionary with n = product p ^ d[p]
 def prime_factors(n):
     d = {}
-    primes = PrimesPlus()
+    primes = primes_plus()
     for p in primes:
         while n % p == 0:
             n /= p
