@@ -19,7 +19,7 @@ from  operator import mul
 from      math import sqrt, ceil
 
 def factorial(n):
-    return reduce(lambda x,y:x*y, range(1,n+1), 1)
+    return reduce(lambda x, y : x*y, range(1, n+1), 1)
 
 def is_permutation(a,b):
     return sorted(str(a)) == sorted(str(b))
