@@ -7,12 +7,11 @@
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
-# History:     None yet
-# TODO:        A whole lot
+# History:     Unimportant.
+# TODO:        Nothing yet.
 #------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------------------
-
 import random
 from functools import reduce
 from  operator import mul
@@ -25,9 +24,9 @@ def is_permutation(a,b):
     return sorted(str(a)) == sorted(str(b))
 
 def is_palindromic(n):
-    return str(n)==str(n)[::-1]
+    return str(n) == str(n)[::-1]
 
-def is_pandigital(n, s=9):
+def is_pandigital(n, s = 9):
     n = str(n)
     return len(n) == s and not '1234567890'[:s].strip(n)
 
