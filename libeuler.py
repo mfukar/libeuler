@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.1
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 21:45 GTB Standard Time
+#              Last Update: Wed Jan 18, 2012 21:50 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -47,11 +47,10 @@ def isqrt(x):
 
 # Deterministic primality test based on the P3 prime candidate generator.
 def is_prime(n):
-    from math import sqrt
     if n in [2, 3, 5]: return True
     if n == 1 or n & 1 == 0: return False
     if n > 5 and (n % 6 not in [1, 5] or n % 5 == 0): return False
-    for c in range(7, int(sqrt(n)) + 1, 2):
+    for c in range(7, isqrt(n), 2):
         p1, k, p2 = 5 * c, 6 * c, 7 * c
         if (n - p1) % k == 0 or (n - p2) % k == 0:
             return False
