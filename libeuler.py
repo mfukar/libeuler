@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # @file        libeuler.py
 # @author      Michael Foukarakis
-# @version     0.1
+# @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 21:50 GTB Standard Time
+#              Last Update: Wed Jan 18, 2012 22:05 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -57,6 +57,7 @@ def is_prime(n):
     else:
         return True
 
+
 # http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
 def miller_rabin_pass(a, s, d, n):
     a_to_power = pow(a, d, n)
@@ -67,7 +68,6 @@ def miller_rabin_pass(a, s, d, n):
             return True
         a_to_power = (a_to_power * a_to_power) % n
     return a_to_power == n - 1
-
 
 def miller_rabin(n):
     d = n - 1
@@ -82,7 +82,6 @@ def miller_rabin(n):
         if not miller_rabin_pass(a, s, d, n):
             return False
     return True
-
 
 def trial_division(n, bound=None):
     if n == 1: return 1
@@ -100,7 +99,6 @@ def trial_division(n, bound=None):
         i += 1
     return n
 
-
 def factor(n):
     if n in [-1, 0, 1]: return []
     if n < 0: n = -n
@@ -115,9 +113,8 @@ def factor(n):
     F.sort()
     return F
 
-
-# Generator for a superset of primes
-# Used for prime factorization, below:
+# Prime candidate generator (6*n + 1, 6*n + 5)
+# Used for prime factorization.
 def primes_plus():
     yield 2
     yield 3
