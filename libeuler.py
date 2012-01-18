@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.1
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 11:56 GTB Standard Time
+#              Last Update: Wed Jan 18, 2012 13:00 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -153,16 +153,16 @@ def permutation(n, s):
 def binomial(n, k):
     nt = 1
     for t in range(min(k, n-k)):
-        nt = nt*(n-t)//(t+1)
+        nt = nt * (n - t) // (t + 1)
     return nt
 
 # My awesome prime sieve.
-import numpy as np
 def prime_sieve(n):
     """ Input n >= 6, Returns a list of primes, 2 <= p < n """
+    import numpy as np
     sieve = np.ones(n/3 + (n%6==2), dtype=np.bool)
     sieve[0] = False
-    for i in range(int(n**0.5)//3+1):
+    for i in range(int(n**0.5)//3 + 1):
         if sieve[i]:
             k=3*i+1|1
             sieve[      ((k*k)//3)      ::2*k] = False
