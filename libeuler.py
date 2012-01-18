@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.1
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 15:56 GTB Standard Time
+#              Last Update: Wed Jan 18, 2012 15:57 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 import random
 from functools import reduce
 from  operator import mul
-from      math import sqrt, ceil
+from      math import ceil
 
 def factorial(n):
     return reduce(lambda x, y : x*y, range(1, n+1), 1)
@@ -193,7 +193,7 @@ def triangle_maximal_sum(t):
 # Returns the aliquot sum of n - sum of its proper divisors
 def s(n):
     sum = 1
-    t = sqrt(n)
+    t = isqrt(n)
     # only proper divisors, please
     for i in range(2, int(t)+1):
         if n % i == 0: sum += i + n / i
