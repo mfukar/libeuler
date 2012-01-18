@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.1
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 13:00 GTB Standard Time
+#              Last Update: Wed Jan 18, 2012 15:56 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -30,6 +30,19 @@ def is_pandigital(n, s = 9):
     n = str(n)
     return len(n) == s and not '1234567890'[:s].strip(n)
 
+def isqrt(x):
+    """
+    Integer square root (floor(sqrt(n)), suitable for large integers.
+    Assumes x > 0.
+    """
+    a, b = divmod(n.bit_length(), 2)
+    x = 2**(a+b)
+    while True:
+        y = (x + n//x)//2
+        if y >= x:
+            return x
+        x = y
+
 def is_prime(n):
     if n == 2 or n == 3:
         return True
@@ -39,12 +52,12 @@ def is_prime(n):
         return True
     if n % 3 == 0:
         return False
-    r = int(sqrt(n))
+    r = isqrt(n)
     f = 5
     while f <= r:
         if n%f == 0: return False
         if n%(f+2) == 0: return False
-        f +=6
+        f += 6
     return True
 
 
