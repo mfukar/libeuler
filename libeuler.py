@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Jan 18, 2012 22:05 GTB Standard Time
+#              Last Update: Thu Jan 19, 2012 10:56 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -47,9 +47,12 @@ def isqrt(x):
 
 # Deterministic primality test based on the P3 prime candidate generator.
 def is_prime(n):
-    if n in [2, 3, 5]: return True
-    if n == 1 or n & 1 == 0: return False
-    if n > 5 and (n % 6 not in [1, 5] or n % 5 == 0): return False
+    if n in [2, 3, 5]:
+        return True
+    if n == 1 or n & 1 == 0:
+        return False
+    if n > 5 and (n % 6 not in [1, 5] or n % 5 == 0):
+        return False
     for c in range(7, isqrt(n), 2):
         p1, k, p2 = 5 * c, 6 * c, 7 * c
         if (n - p1) % k == 0 or (n - p2) % k == 0:
@@ -99,18 +102,19 @@ def trial_division(n, bound=None):
         i += 1
     return n
 
+# Returns a dictionary with n = product over p ^ d[p]
 def factor(n):
-    if n in [-1, 0, 1]: return []
-    if n < 0: n = -n
-    F = []
+    if n in [-1, 0, 1]: return {}
+    n = abs(n)
+    F = {}
     while n != 1:
         p = trial_division(n)
         e = 1
-        n /= p
-        while n%p == 0:
-            e += 1; n /= p
-        F.append((p,e))
-    F.sort()
+        n //= p
+        while n % p == 0:
+            e += 1
+            n //= p
+        F[p] = e
     return F
 
 # Prime candidate generator (6*n + 1, 6*n + 5)
