@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Thu Jan 19, 2012 10:56 GTB Standard Time
+#              Last Update: Thu Oct 18, 2012 22:39 Malay Peninsula Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -197,3 +197,43 @@ def s(n):
     if t == int(t):
         sum -= t
     return sum
+
+def polygonal(dim):
+    """
+    Generates a series of polygonal numbers for n = [3, 8].
+    """
+    if dim < 3 or dim > 8:
+        return NotImplemented
+    n = 0
+    func = {
+        3 : lambda x: x * (x + 1) // 2,
+        4 : lambda x: x ** 2,
+        5 : lambda x: x * (3*x - 1) // 2,
+        6 : lambda x: x * (2*x - 1),
+        7 : lambda x: x * (5*x - 3) // 2,
+        8 : lambda x: x * (3*n - 2)
+    }[dim]
+    while True:
+        n += 1
+        yield func(n)
+
+def cf(n):
+    """
+    Yields the continued fraction expansion of the square root of integer n,
+    or 0 if n is a perfect square.
+    """
+    from math import sqrt
+    a0 = int(sqrt(n))      # floor of sqrt(r)
+    if a0*a0 == n: yield 0 # perfect square
+
+    d, m, a = 1, 0, a0
+
+    while True:
+        yield a
+
+        m = d * a - m
+        d = (n - m * m) / d
+        a = (a0 + m) / d
+
+        if a == 2 * a0:
+            break
