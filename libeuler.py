@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Thu Oct 18, 2012 22:39 Malay Peninsula Standard Time
+#              Last Update: Sat Nov 03, 2012 15:36 Malay Peninsula Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -117,9 +117,11 @@ def factor(n):
         F[p] = e
     return F
 
-# Prime candidate generator (6*n + 1, 6*n + 5)
-# Used for prime factorization.
 def primes_plus():
+    """
+    Generates prime number candidates (6*n + 1, 6*n + 5)
+    Used in prime factorization routine prime_factors().
+    """
     yield 2
     yield 3
     i = 5
@@ -170,14 +172,14 @@ def binomial(n, k):
 def prime_sieve(n):
     """ Input n >= 6, Returns a list of primes, 2 <= p < n """
     import numpy as np
-    sieve = np.ones(n/3 + (n%6==2), dtype=np.bool)
+    sieve = np.ones(n/3 + (n % 6 == 2), dtype = np.bool)
     sieve[0] = False
-    for i in range(int(n**0.5)//3 + 1):
+    for i in range(int(n**0.5) // 3 + 1):
         if sieve[i]:
-            k=3*i+1|1
+            k = 3 * i + 1|1
             sieve[      ((k*k)//3)      ::2*k] = False
             sieve[(k*k+4*k-2*k*(i&1))//3::2*k] = False
-    return np.r_[2, 3, ((3 * np.nonzero(sieve)[0]+1)|1)].tolist()
+    return np.r_[2, 3, ((3 * np.nonzero(sieve)[0] + 1)|1)].tolist()
 
 # Find the maximal path from the root of a tree to a leaf
 # t is a list of lists, representing the tree top-down
@@ -237,3 +239,13 @@ def cf(n):
 
         if a == 2 * a0:
             break
+
+def phi(n):
+    """
+    Computes the Euler's totient function φ(n) -
+    number of positive numbers less than or
+    equal to n which are relatively prime to n.
+    """
+    from functools import reduce
+    from operator  import mul
+    return n * reduce(mul, [(1 - 1 / p) for p in prime_factors(n)], 1)
