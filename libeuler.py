@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Sat Nov 03, 2012 15:36 Malay Peninsula Standard Time
+#              Last Update: Sat Nov 03, 2012 18:36 Malay Peninsula Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -94,16 +94,19 @@ def trial_division(n, bound=None):
     if bound == None:
         bound = n
     dif = [6, 4, 2, 4, 2, 4, 6, 2]
-    m = 7; i = 1
+    i, m = 1, 7
     while m <= bound and m*m <= n:
-        if n%m == 0:
+        if n % m == 0:
             return m
         m += dif[i%8]
         i += 1
     return n
 
-# Returns a dictionary with n = product over p ^ d[p]
 def factor(n):
+    """
+    Returns a dictionary with n = product over p ^ d[p]
+    Seems somewhat faster than prime_factors().
+    """
     if n in [-1, 0, 1]: return {}
     n = abs(n)
     F = {}
