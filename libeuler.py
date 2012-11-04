@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Sat Nov 03, 2012 18:36 Malay Peninsula Standard Time
+#              Last Update: Sun Nov 04, 2012 20:56 Malay Peninsula Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -193,15 +193,21 @@ def triangle_maximal_sum(t):
     return t[0][0]
 
 # Returns the aliquot sum of n - sum of its proper divisors
-def s(n):
-    sum = 1
-    t = isqrt(n)
-    # only proper divisors, please
-    for i in range(2, int(t)+1):
-        if n % i == 0: sum += i + n / i
-    if t == int(t):
-        sum -= t
-    return sum
+def s(n0, primelist):
+    n, i, p, res = n0, 0, primelist[0], 1
+    while p * p <= n and n > 1 and i < len(primelist):
+        p = primelist[i]
+        i += 1
+        if n % p == 0:
+            j = p * p
+            n = n / p
+            while n % p == 0:
+                j = j * p
+                n = n / p
+            res = res * (j - 1) / (p - 1)
+    if n > 1:
+        res *= n + 1
+    return res - n0
 
 def polygonal(dim):
     """
