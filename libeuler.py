@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Sun Nov 04, 2012 20:56 Malay Peninsula Standard Time
+#              Last Update: Mon Nov 05, 2012 21:56 Malay Peninsula Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -30,23 +30,10 @@ def is_pandigital(n, s = 9):
     n = str(n)
     return len(n) == s and not '1234567890'[:s].strip(n)
 
-def isqrt(x):
-    """
-    Integer square root (floor(sqrt(n)), suitable for large integers.
-    Assumes x > 0.
-    Somewhat slow, definitely slower than math.sqrt or **.
-    """
-    n = x
-    a, b = divmod(n.bit_length(), 2)
-    x = 2**(a+b)
-    while True:
-        y = (x + n//x)//2
-        if y >= x:
-            return x
-        x = y
-
-# Deterministic primality test based on the P3 prime candidate generator.
 def is_prime(n):
+    """
+    Deterministic primality test based on the P3 prime candidate generator.
+    """
     if n in [2, 3, 5]:
         return True
     if n == 1 or n & 1 == 0:
@@ -73,6 +60,9 @@ def miller_rabin_pass(a, s, d, n):
     return a_to_power == n - 1
 
 def miller_rabin(n):
+    """
+    Miller-Rabin primality test.
+    """
     d = n - 1
     s = 0
     while d % 2 == 0:
@@ -173,7 +163,10 @@ def binomial(n, k):
 
 # My awesome prime sieve.
 def prime_sieve(n):
-    """ Input n >= 6, Returns a list of primes, 2 <= p < n """
+    """
+    Input n >= 6,
+    Returns a list of primes p, where 2 <= p < n
+    """
     import numpy as np
     sieve = np.ones(n/3 + (n % 6 == 2), dtype = np.bool)
     sieve[0] = False
@@ -184,9 +177,12 @@ def prime_sieve(n):
             sieve[(k*k+4*k-2*k*(i&1))//3::2*k] = False
     return np.r_[2, 3, ((3 * np.nonzero(sieve)[0] + 1)|1)].tolist()
 
-# Find the maximal path from the root of a tree to a leaf
-# t is a list of lists, representing the tree top-down
 def triangle_maximal_sum(t):
+    """
+    Returns the maximal path from the root of a tree to a leaf.
+    t is a list of lists, representing
+    the tree top-down.
+    """
     for row in range(len(t)-1, 0, -1):
         for col in range(0, row):
             dt[row-1][col] += max(t[row][col], t[row][col+1])
