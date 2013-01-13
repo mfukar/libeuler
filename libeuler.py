@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.2
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Mon Nov 05, 2012 21:56 Malay Peninsula Standard Time
+#              Last Update: Sun Jan 13, 2013 10:24 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -48,8 +48,11 @@ def is_prime(n):
         return True
 
 
-# http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
 def miller_rabin_pass(a, s, d, n):
+    """
+    http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
+    """
+
     a_to_power = pow(a, d, n)
     if a_to_power == 1:
         return True
@@ -124,8 +127,10 @@ def primes_plus():
             i += 2
         i += 2
 
-# Returns a dictionary with n = product p ^ d[p]
 def prime_factors(n):
+    """
+    Returns a dictionary with n = product p ^ d[p]
+    """
     d = {}
     primes = primes_plus()
     for p in primes:
@@ -180,16 +185,17 @@ def prime_sieve(n):
 def triangle_maximal_sum(t):
     """
     Returns the maximal path from the root of a tree to a leaf.
-    t is a list of lists, representing
-    the tree top-down.
+    t is a list of lists, representing the tree top-down.
     """
     for row in range(len(t)-1, 0, -1):
         for col in range(0, row):
             dt[row-1][col] += max(t[row][col], t[row][col+1])
     return t[0][0]
 
-# Returns the aliquot sum of n - sum of its proper divisors
 def s(n0, primelist):
+    """
+    Returns the aliquot sum of n - sum of its proper divisors
+    """
     n, i, p, res = n0, 0, primelist[0], 1
     while p * p <= n and n > 1 and i < len(primelist):
         p = primelist[i]
@@ -247,8 +253,7 @@ def cf(n):
 
 def phi(n):
     """
-    Computes the Euler's totient function φ(n) -
-    number of positive numbers less than or
+    Computes the Euler's totient function φ(n) - number of positive numbers less than or
     equal to n which are relatively prime to n.
     """
     from functools import reduce
