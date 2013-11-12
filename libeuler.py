@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # @file        libeuler.py
 # @author      Michael Foukarakis
-# @version     0.2
+# @version     0.3
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Sun Jan 13, 2013 10:24 GTB Standard Time
+#              Last Update: Tue Nov 12, 2013 09:46 GMT
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -31,8 +31,7 @@ def is_pandigital(n, s = 9):
     return len(n) == s and not '1234567890'[:s].strip(n)
 
 def is_prime(n):
-    """
-    Deterministic primality test based on the P3 prime candidate generator.
+    """Deterministic primality test based on the P3 prime candidate generator.
     """
     if n in [2, 3, 5]:
         return True
@@ -52,7 +51,6 @@ def miller_rabin_pass(a, s, d, n):
     """
     http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
     """
-
     a_to_power = pow(a, d, n)
     if a_to_power == 1:
         return True
@@ -63,8 +61,7 @@ def miller_rabin_pass(a, s, d, n):
     return a_to_power == n - 1
 
 def miller_rabin(n):
-    """
-    Miller-Rabin primality test.
+    """Miller-Rabin primality test.
     """
     d = n - 1
     s = 0
@@ -80,7 +77,11 @@ def miller_rabin(n):
     return True
 
 def trial_division(n, bound=None):
-    if n == 1: return 1
+    """Tests to see if N can be divided by any integer greater than one and less than N or
+    BOUND.
+    """
+    if n == 1:
+        return 1
     for p in [2, 3, 5]:
         if n%p == 0:
             return p
@@ -96,9 +97,8 @@ def trial_division(n, bound=None):
     return n
 
 def factor(n):
-    """
-    Returns a dictionary with n = product over p ^ d[p]
-    Seems somewhat faster than prime_factors().
+    """Returns a dictionary with n = product over p ^ d[p].  Seems somewhat faster than
+    prime_factors().
     """
     if n in [-1, 0, 1]: return {}
     n = abs(n)
@@ -113,10 +113,10 @@ def factor(n):
         F[p] = e
     return F
 
-def primes_plus():
+def p6():
     """
-    Generates prime number candidates (6*n + 1, 6*n + 5)
-    Used in prime factorization routine prime_factors().
+    Generates prime number candidates (6*n + 1, 6*n + 5). Used in prime factorization
+    routine prime_factors().
     """
     yield 2
     yield 3
@@ -128,11 +128,10 @@ def primes_plus():
         i += 2
 
 def prime_factors(n):
-    """
-    Returns a dictionary with n = product p ^ d[p]
+    """Returns a dictionary with n = product p ^ d[p].
     """
     d = {}
-    primes = primes_plus()
+    primes = p6()
     for p in primes:
         while n % p == 0:
             n /= p
@@ -141,11 +140,16 @@ def prime_factors(n):
             return d
 
 def number_of_divisors(n):
+    """Returns the number of divisors of N, computing it as the product of its prime
+    factors.
+    """
     d = prime_factors(n)
     powers_plus = map(lambda x: x + 1, d.values())
     return reduce(mul, powers_plus, 1)
 
 def gcd(a, b):
+    """Returns the GCD of A and B.
+    """
     a, b = abs(a), abs(b)
     if a == 0:
         return b
@@ -156,7 +160,10 @@ def gcd(a, b):
     return a
 
 def permutation(n, s):
-    if len(s)==1: return s
+    """Returns a permutation of sequence S.
+    """
+    if len(s) == 1:
+        return s
     q, r = divmod(n, factorial(len(s)-1))
     return s[q] + permutation(r, s[:q] + s[q+1:])
 
@@ -168,8 +175,7 @@ def binomial(n, k):
 
 # My awesome prime sieve.
 def prime_sieve(n):
-    """
-    Input n >= 6,
+    """Input n >= 6,
     Returns a list of primes p, where 2 <= p < n
     """
     import numpy as np
@@ -183,9 +189,8 @@ def prime_sieve(n):
     return np.r_[2, 3, ((3 * np.nonzero(sieve)[0] + 1)|1)].tolist()
 
 def triangle_maximal_sum(t):
-    """
-    Returns the maximal path from the root of a tree to a leaf.
-    t is a list of lists, representing the tree top-down.
+    """Returns the maximal path from the root of a tree to a leaf.  t is a list of lists,
+    representing the tree top-down.
     """
     for row in range(len(t)-1, 0, -1):
         for col in range(0, row):
@@ -193,8 +198,7 @@ def triangle_maximal_sum(t):
     return t[0][0]
 
 def s(n0, primelist):
-    """
-    Returns the aliquot sum of n - sum of its proper divisors
+    """Returns the aliquot sum of n - sum of its proper divisors
     """
     n, i, p, res = n0, 0, primelist[0], 1
     while p * p <= n and n > 1 and i < len(primelist):
@@ -212,8 +216,7 @@ def s(n0, primelist):
     return res - n0
 
 def polygonal(dim):
-    """
-    Generates a series of polygonal numbers for n = [3, 8].
+    """Generates a series of polygonal numbers for n = [3, 8].
     """
     if dim < 3 or dim > 8:
         return NotImplemented
@@ -231,9 +234,8 @@ def polygonal(dim):
         yield func(n)
 
 def cf(n):
-    """
-    Yields the continued fraction expansion of the square root of integer n,
-    or 0 if n is a perfect square.
+    """Yields the continued fraction expansion of the square root of integer n, or 0 if n
+    is a perfect square.
     """
     from math import sqrt
     a0 = int(sqrt(n))      # floor of sqrt(r)
@@ -252,9 +254,8 @@ def cf(n):
             break
 
 def phi(n):
-    """
-    Computes the Euler's totient function φ(n) - number of positive numbers less than or
-    equal to n which are relatively prime to n.
+    """Computes the Euler's totient function φ(n) - number of positive numbers less than
+    or equal to n which are relatively prime to n.
     """
     from functools import reduce
     from operator  import mul
