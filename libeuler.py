@@ -61,7 +61,7 @@ def miller_rabin_pass(a, s, d, n):
     return a_to_power == n - 1
 
 def miller_rabin(n):
-    """Miller-Rabin primality test.
+    """Miller-Rabin primality test. Returns True if N is prime.
     """
     d = n - 1
     s = 0
@@ -139,12 +139,17 @@ def prime_factors(n):
         if n == 1:
             return d
 
-def number_of_divisors(n):
+def number_of_divisors(n, square=False):
     """Returns the number of divisors of N, computing it as the product of its prime
     factors.
+    When SQUARE is True, it returns the number of divisors of N^2, knowing that:
+    N^2 = (p1^a1 * p2^a2 * ... * pk^ak)^2
     """
     d = prime_factors(n)
-    powers_plus = map(lambda x: x + 1, d.values())
+    if square:
+        powers_plus = map(lambda x: 2*x + 1, d.values())
+    else:
+        powers_plus = map(lambda x:   x + 1, d.values())
     return reduce(mul, powers_plus, 1)
 
 def gcd(a, b):
