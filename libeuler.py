@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.3
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Tue Nov 12, 2013 09:46 GMT
+#              Last Update: Tue Feb 18, 2014 10:35 GMT
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -13,6 +13,7 @@
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------------------
 import random
+from itertools import tee, ifilter, ifilterfalse
 from functools import reduce
 from  operator import mul
 from      math import ceil
@@ -171,6 +172,13 @@ def permutation(n, s):
         return s
     q, r = divmod(n, factorial(len(s)-1))
     return s[q] + permutation(r, s[:q] + s[q+1:])
+
+def partition(seq, key=bool):
+    """Returns two iterators that filter elements from sequence SEQ. The first one returns
+    those elements for which KEY is True, and the second those for which KEY is False.
+    """
+    s1, s2 = tee(seq)
+    return ifilter(key, s1), ifilterfalse(key, s2)
 
 def binomial(n, k):
     nt = 1
