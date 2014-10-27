@@ -12,10 +12,10 @@
 #------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------------------
-import random
 from itertools import tee, ifilter, ifilterfalse
 from functools import reduce
 from  operator import mul
+from    random import randrange
 from      math import ceil
 
 def factorial(n):
@@ -72,7 +72,7 @@ def miller_rabin(n):
     for repeat in range(20):
         a = 0
         while a == 0:
-            a = random.randrange(n)
+            a = randrange(n)
         if not miller_rabin_pass(a, s, d, n):
             return False
     return True
