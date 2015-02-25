@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # @file        libeuler.py
 # @author      Michael Foukarakis
-# @version     0.3
+# @version     0.4
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Tue Feb 18, 2014 10:35 GMT
+#              Last Update: Wed Feb 25, 2015 09:49 EET
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -12,7 +12,7 @@
 #------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 #------------------------------------------------------------------------
-from itertools import tee, ifilter, ifilterfalse
+from itertools import tee, filterfalse
 from functools import reduce
 from  operator import mul
 from    random import randrange
@@ -21,13 +21,13 @@ from      math import ceil
 def factorial(n):
     return reduce(lambda x, y : x*y, range(1, n+1), 1)
 
-def is_permutation(a,b):
-    return sorted(str(a)) == sorted(str(b))
+def is_permutation(a, b):
+    return sorted(a) == sorted(b)
 
 def is_palindromic(n):
     return str(n) == str(n)[::-1]
 
-def is_pandigital(n, s = 9):
+def is_pandigital(n, s=9):
     n = str(n)
     return len(n) == s and not '1234567890'[:s].strip(n)
 
@@ -49,8 +49,7 @@ def is_prime(n):
 
 
 def miller_rabin_pass(a, s, d, n):
-    """
-    http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
+    """Miller-Rabin single pass.
     """
     a_to_power = pow(a, d, n)
     if a_to_power == 1:
@@ -63,6 +62,7 @@ def miller_rabin_pass(a, s, d, n):
 
 def miller_rabin(n):
     """Miller-Rabin primality test. Returns True if N is prime.
+    Reference: http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20101013093632
     """
     d = n - 1
     s = 0
@@ -78,8 +78,7 @@ def miller_rabin(n):
     return True
 
 def trial_division(n, bound=None):
-    """Tests to see if N can be divided by any integer greater than one and less than N or
-    BOUND.
+    """Tests if N can be divided exactly by any integer in [2, max(N, BOUND)). Returns the divisor, or N.
     """
     if n == 1:
         return 1
@@ -115,8 +114,7 @@ def factor(n):
     return F
 
 def p6():
-    """
-    Generates prime number candidates (6*n + 1, 6*n + 5). Used in prime factorization
+    """Generates prime number candidates (6*n + 1, 6*n + 5). Used in prime factorization
     routine prime_factors().
     """
     yield 2
@@ -178,7 +176,7 @@ def partition(seq, key=bool):
     those elements for which KEY is True, and the second those for which KEY is False.
     """
     s1, s2 = tee(seq)
-    return ifilter(key, s1), ifilterfalse(key, s2)
+    return filter(key, s1), filterfalse(key, s2)
 
 def binomial(n, k):
     nt = 1
