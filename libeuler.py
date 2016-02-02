@@ -1,16 +1,15 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # @file        libeuler.py
 # @author      Michael Foukarakis
 # @version     0.4
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Feb 25, 2015 09:49 EET
+#              Last Update: Tue Feb 02, 2016 09:53 EET
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
 # History:     Unimportant.
 # TODO:        Nothing yet.
-#------------------------------------------------------------------------
-# -*- coding: utf-8 -*-
 #------------------------------------------------------------------------
 from itertools import tee, filterfalse
 from functools import reduce
@@ -245,7 +244,7 @@ def polygonal(dim):
         yield func(n)
 
 def cf(n):
-    """Yields the continued fraction expansion of the square root of integer n, or 0 if n
+    """Yields the continued fraction expansion of the square root of integer N, or 0 if N
     is a perfect square.
     """
     from math import sqrt
@@ -266,7 +265,7 @@ def cf(n):
 
 def phi(n):
     """Computes the Euler's totient function φ(n) - number of positive numbers less than
-    or equal to n which are relatively prime to n.
+    or equal to N which are relatively prime to N.
     """
     from functools import reduce
     from operator  import mul
