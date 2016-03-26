@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.4
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Wed Feb 25, 2015 09:49 EET
+#              Last Update: Σαβ Μαρ 26, 2016 22:07 GTB Standard Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -122,9 +122,9 @@ def p6():
     i = 5
     while True:
         yield i
-        if i % 6 == 1:
-            i += 2
         i += 2
+        yield i
+        i += 4
 
 def prime_factors(n):
     """Returns a dictionary with n = product p ^ d[p].
