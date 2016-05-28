@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.4
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Σαβ Μαρ 26, 2016 22:07 GTB Standard Time
+#              Last Update: Σαβ Μαϊ 28, 2016 10:07 GTB Daylight Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -76,6 +76,16 @@ def miller_rabin(n):
         if not miller_rabin_pass(a, s, d, n):
             return False
     return True
+
+def lucas_lehmer_test(p):
+    """Lucas-Lehmer primality test for Mersenne numbers. Returns True if 2**p-1 is prime.
+    """
+    s = 4
+    M = 2**p - 1
+    for _ in range(p - 2):
+        s = ((s * s) - 2) % M
+    return s == 0
+
 
 def trial_division(n, bound=None):
     """Tests if N can be divided exactly by any integer in [2, max(N, BOUND)). Returns the divisor, or N.
