@@ -3,7 +3,7 @@
 # @author      Michael Foukarakis
 # @version     0.4
 # @date        Created:     Tue Oct 11, 2011 08:51 GTB Daylight Time
-#              Last Update: Σαβ Μαϊ 28, 2016 10:07 GTB Daylight Time
+#              Last Update: Τετ Ιουν 01, 2016 09:14 GTB Daylight Time
 #------------------------------------------------------------------------
 # Description: Project Euler helper library
 #------------------------------------------------------------------------
@@ -281,3 +281,7 @@ def phi(n):
     from functools import reduce
     from operator  import mul
     return n * reduce(mul, [(1 - 1 / p) for p in prime_factors(n)], 1)
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
